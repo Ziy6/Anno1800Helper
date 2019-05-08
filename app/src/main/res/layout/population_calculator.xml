@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/population_calculator_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:id="@+id/old_world_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:rowCount="3"
+            android:padding="10dp"
+            tools:ignore="MissingConstraints">
+
+            <Button
+                android:id="@+id/farmer_button"
+                android:layout_height="wrap_content" />
+
+
+            <EditText
+                android:id="@+id/farmer_edit_text"
+                android:text="1234567"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:id="@+id/worker_button"
+                android:layout_marginLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/worker_edit_text"
+                android:text="1234567"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:id="@+id/artistan_button"/>
+
+            <EditText
+                android:id="@+id/artistan_edit_text"
+                android:text="1234567"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:id="@+id/engineer_button"
+                android:layout_marginLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/engineer_edit_text"
+                android:text="1234567"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:id="@+id/investor_button"/>
+
+            <EditText
+                android:id="@+id/investor_edit_text"
+                android:text="1234567"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"/>
+
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/new_world_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/old_world_layout"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:columnCount="4"
+            android:rowCount="1">
+
+            <Button
+                android:id="@+id/jornaleros"/>
+
+            <EditText
+                android:id="@+id/jornaleros_edit_text"
+                android:text="1234567"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:id="@+id/obreros_button"
+                android:layout_marginLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/obreros_edit_text"
+                android:text="1234567"
+                android:layout_width="80dp"
+                android:layout_height="match_parent" />
+
+        </GridLayout>
+
+    </RelativeLayout>
+
+
+</FrameLayout>
