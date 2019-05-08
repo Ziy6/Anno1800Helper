@@ -1,13 +1,36 @@
 package com.adv.anno1800helper;
 
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        uiSetup();
+    }
+
+    private void setupViewPager(ViewPager viewPager)
+    {
+        ViewPageAdaptor mAdaptor = new ViewPageAdaptor(getSupportFragmentManager());
+        mAdaptor.addfragment(new PopulationController(), "Population Controller");
+        mAdaptor.addfragment(new BuildingController(), "Building Controller");
+
+        viewPager.setAdapter(mAdaptor);
+    }
+    private void uiSetup()
+    {
+        ViewPager mViewPager = findViewById(R.id.mContainer);
+        setupViewPager(mViewPager);
+
+        TabLayout tabLayout = findViewById(R.id.mTabLayout);
+        tabLayout.setupWithViewPager(mViewPager);
     }
 }
