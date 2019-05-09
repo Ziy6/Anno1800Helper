@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout
     android:id="@+id/population_calculator_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,65 +9,75 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/population_title_Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Population"
+                android:textSize="24dp"/>
+
+        </LinearLayout>
 
         <GridLayout
             android:id="@+id/old_world_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="4"
-            android:rowCount="3"
-            android:padding="10dp"
+            android:columnCount="6"
+            android:rowCount="2"
+            android:layout_below="@+id/population_title_Layout"
             tools:ignore="MissingConstraints">
 
-            <Button
+            <ImageView
                 android:id="@+id/farmer_button"
-                android:layout_height="wrap_content" />
-
-
+                android:background="@drawable/farmer"/>
             <EditText
                 android:id="@+id/farmer_edit_text"
-                android:text="1234567"
                 android:layout_width="80dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:text="0" />
 
-            <Button
+            <ImageView
                 android:id="@+id/worker_button"
-                android:layout_marginLeft="20dp"/>
-
+                android:background="@drawable/worker"/>
             <EditText
                 android:id="@+id/worker_edit_text"
-                android:text="1234567"
                 android:layout_width="80dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:text="0" />
 
-            <Button
-                android:id="@+id/artistan_button"/>
-
+            <ImageView
+                android:id="@+id/artistan_button"
+                android:background="@drawable/artisan"/>
             <EditText
                 android:id="@+id/artistan_edit_text"
-                android:text="1234567"
                 android:layout_width="80dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:text="0" />
 
-            <Button
+            <ImageView
                 android:id="@+id/engineer_button"
-                android:layout_marginLeft="20dp"/>
-
+                android:background="@drawable/engineer"/>
             <EditText
                 android:id="@+id/engineer_edit_text"
-                android:text="1234567"
                 android:layout_width="80dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:text="0" />
 
-            <Button
-                android:id="@+id/investor_button"/>
-
+            <ImageView android:id="@+id/investor_button"
+                android:background="@drawable/investor"/>
             <EditText
                 android:id="@+id/investor_edit_text"
-                android:text="1234567"
                 android:layout_width="80dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:text="0" />
 
         </GridLayout>
 
@@ -75,33 +86,626 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/old_world_layout"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:columnCount="4"
+            android:layout_marginVertical="15dp"
+            android:columnCount="6"
             android:rowCount="1">
 
-            <Button
-                android:id="@+id/jornaleros"/>
+            <ImageView
+                android:id="@+id/jornaleros"
+                android:background="@drawable/jornalero"/>
 
             <EditText
                 android:id="@+id/jornaleros_edit_text"
-                android:text="1234567"
                 android:layout_width="80dp"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:text="0"/>
 
-            <Button
+            <ImageView
                 android:id="@+id/obreros_button"
-                android:layout_marginLeft="20dp"/>
+                android:background="@drawable/obrero"/>
 
             <EditText
                 android:id="@+id/obreros_edit_text"
-                android:text="1234567"
                 android:layout_width="80dp"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:text="0"/>
 
         </GridLayout>
 
+        <LinearLayout
+            android:id="@+id/population_consumption_title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_below="@+id/new_world_layout">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Consumption requirements"
+                android:textSize="24dp"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/population_consumption_title_layout" >
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount="5"
+                android:columnCount="6">
+
+                <ImageView
+                    android:id="@+id/population_fishery_button"
+                    android:background="@drawable/fishery"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_fishery_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_fishery_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_framework_knitter_button"
+                    android:background="@drawable/framework_knitter"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_framework_knitter_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_framework_knitter_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_schnapps_distillery_button"
+                    android:background="@drawable/schnapps_distillery"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_schnapps_distillery_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_schnapps_distillery_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_slaughterhouse_button"
+                    android:background="@drawable/slaughterhouse"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_slaughterhouse_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_slaughterhouse_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_bakery_button"
+                    android:background="@drawable/bakery"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_bakery_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_bakery_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_soap_factory_button"
+                    android:background="@drawable/soap_factory"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_soap_factory_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_soap_factory_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_brewery_button"
+                    android:background="@drawable/brewery"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_brewery_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_brewery_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_cannery_button"
+                    android:background="@drawable/cannery"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_cannery_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_cannery_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_sewing_machine_button"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sewing_machine_factory"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_sewing_machine_factory_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_sewing_machine_factory_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_fur_dealer_button"
+                    android:background="@drawable/fur_dealer"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_fur_dealer_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_fur_dealer_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_rum_distillery_button"
+                    android:background="@drawable/rum_distillery"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_rum_distillery_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_rum_distillery_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_spectacle_factory_button"
+                    android:background="@drawable/spectacle_factory"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_spectacle_factory_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_spectacle_factory_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_coffee_roaster_button"
+                    android:background="@drawable/coffee_roaster"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_coffee_roaster_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_coffee_roaster_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_lightbuib_factory_button"
+                    android:background="@drawable/lightbulb_factory"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_lightbulb_factory_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_lightbulb_factory_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_bicycle_factory_button"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bicycle_factory"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_bicycle_factory_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_bicycle_factory_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_clock_maker_button"
+                    android:background="@drawable/clock_maker"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_clock_maker_factory_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_clock_maker_factory_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_champagne_cellar_button"
+                    android:background="@drawable/champagne_cellar"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_champagne_cellar_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_champagne_cellar_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_cigar_factory_button"
+                    android:background="@drawable/cigar_factory"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_cigar_factory_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_cigar_factory_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_chocolate_factory_button"
+                    android:background="@drawable/chocolate_factory"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_chocolate_factory_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_chocolate_factory_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_cab_assembly_line_button"
+                    android:background="@drawable/cab_assembly_line"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_cab_assembly_line_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_cab_assembly_line_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_jeweller_button"
+                    android:background="@drawable/jeweller"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_jeweller_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_jeweller_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_gramophone_factory_button"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gramophone_factory"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_gramophone_factory_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_gramophone_factory_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_fried_plantain_kitchen_Image"
+                    android:background="@drawable/fried_plaintain_kitchen"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_plantain_kitchen_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_plantain_kitchen_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_poncho_darner_button"
+                    android:background="@drawable/poncho_darner"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_poncho_darner_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_poncho_darner_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_tortilla_maker_button"
+                    android:background="@drawable/tortilla_maker"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_tortilla_maker_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_tortilla_maker_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/population_bombin_weaver_button"
+                    android:background="@drawable/bombin_weaver"
+                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/population_bombin_weaver_building_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0 Buildings"/>
+
+                    <TextView
+                        android:id="@+id/population_bombin_weaver_tonnage_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.0 Tonnes"/>
+
+                </LinearLayout>
+            </GridLayout>
+        </ScrollView>
     </RelativeLayout>
-
-
 </FrameLayout>

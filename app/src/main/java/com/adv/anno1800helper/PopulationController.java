@@ -16,6 +16,10 @@ public class PopulationController extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.population_controller, container, false);
 
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.population_container, new PopulationCalculator());
+        transaction.commit();
+
         return view;
     }
 }
