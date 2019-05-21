@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
+import com.adv.anno1800helper.fragments.BuildingController;
+import com.adv.anno1800helper.fragments.PopulationController;
+import com.adv.anno1800helper.adapters.ViewPageAdaptor;
+
 public class MainActivity extends AppCompatActivity
 {
 

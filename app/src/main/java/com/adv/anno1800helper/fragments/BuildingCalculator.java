@@ -1,4 +1,4 @@
-package com.adv.anno1800helper;
+package com.adv.anno1800helper.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.adv.anno1800helper.R;
 
 public class BuildingCalculator  extends Fragment implements View.OnClickListener
 {
