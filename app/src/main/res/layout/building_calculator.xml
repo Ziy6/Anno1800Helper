@@ -9,7 +9,8 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="5dp"
         android:columnCount="4"
         android:rowCount="7">
 
@@ -17,169 +18,169 @@
             android:id="@+id/sawmill_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/schnapps_distillery_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/framework_knitter_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp" />
+            android:layout_margin="10dp" />
 
         <Button
             android:id="@+id/brick_factory_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/bakery_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/steelworks_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/soap_factory_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/brewery_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/slaughterhouse_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/window_maker_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/cannery_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/sewing_machine_factory_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/fur_dealer_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/spectacle_factory_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/lightbulb_factory_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/bicycle_factory_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/clockmaker_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/champagne_cellar_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp" />
+            android:layout_margin="10dp" />
 
         <Button
             android:id="@+id/jeweller_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp" />
+            android:layout_margin="10dp" />
 
         <Button
             android:id="@+id/fried_plantain_kitchen_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/rum_distillery_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/poncho_darner_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp" />
+            android:layout_margin="10dp" />
 
         <Button
             android:id="@+id/coffee_roaster_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/bombin_weaver_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp" />
+            android:layout_margin="10dp" />
 
         <Button
             android:id="@+id/cigar_factory_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp" />
+            android:layout_margin="10dp" />
 
         <Button
             android:id="@+id/chocolate_factory_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/gramophone_factory_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/cab_assembly_line_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_margin="5dp" />
+            android:layout_margin="10dp" />
 
     </GridLayout>
 </FrameLayout>

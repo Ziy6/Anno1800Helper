@@ -15,7 +15,7 @@ import com.adv.anno1800helper.R;
 public class BuildingCalculator  extends Fragment implements View.OnClickListener
 {
     private final String TAG = "BUILDING_CALCULATOR";
-    public final String BLD_CALC_BUNDLE_KEY = "BUILDING_KEY";
+    public static final String BLD_CALC_BUNDLE_KEY = "BUILDING_KEY";
     private Button sawmill_button, schnapps_distillery_button, framework_knitter_button, brick_factory_button,
             bakery_button, steelworks_button, soap_factory, brewery_button, slaughterhouse_button,
             window_maker_button, cannery_button, sewing_machine_factory_button, fur_dealer_button,

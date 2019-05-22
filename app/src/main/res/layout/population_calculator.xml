@@ -30,54 +30,66 @@
             android:id="@+id/old_world_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/population_title_Layout"
+            android:layout_marginTop="0dp"
             android:columnCount="6"
             android:rowCount="2"
-            android:layout_below="@+id/population_title_Layout"
             tools:ignore="MissingConstraints">
 
             <ImageView
                 android:id="@+id/farmer_button"
-                android:background="@drawable/farmer"/>
+                android:background="@drawable/farmer" />
+
             <EditText
                 android:id="@+id/farmer_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
+                android:inputType="number"
                 android:text="0" />
 
             <ImageView
                 android:id="@+id/worker_button"
-                android:background="@drawable/worker"/>
+                android:background="@drawable/worker" />
+
             <EditText
                 android:id="@+id/worker_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0" />
+                android:text="0"
+                android:inputType="number"/>
 
             <ImageView
                 android:id="@+id/artistan_button"
-                android:background="@drawable/artisan"/>
+                android:background="@drawable/artisan" />
+
             <EditText
                 android:id="@+id/artistan_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0" />
+                android:text="0"
+                android:inputType="number"/>
 
             <ImageView
                 android:id="@+id/engineer_button"
-                android:background="@drawable/engineer"/>
+                android:background="@drawable/engineer" />
+
             <EditText
                 android:id="@+id/engineer_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0" />
+                android:text="0"
+                android:inputType="number"/>
 
-            <ImageView android:id="@+id/investor_button"
-                android:background="@drawable/investor"/>
+            <ImageView
+                android:id="@+id/investor_button"
+                android:background="@drawable/investor" />
+
             <EditText
                 android:id="@+id/investor_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0" />
+                android:text="0"
+                android:inputType="number"/>
 
         </GridLayout>
 
@@ -98,7 +110,8 @@
                 android:id="@+id/jornaleros_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0"/>
+                android:text="0"
+                android:inputType="number" />
 
             <ImageView
                 android:id="@+id/obreros_button"
@@ -108,7 +121,8 @@
                 android:id="@+id/obreros_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0"/>
+                android:text="0"
+                android:inputType="number" />
 
         </GridLayout>
 
