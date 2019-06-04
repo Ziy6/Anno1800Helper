@@ -37,13 +37,13 @@ public class Database
 
     private Population farmer, worker, artistan, engineer, investor, jornaleros, obreros;
 
-    private ArrayList<Population> populationList;
-    private ArrayList<Building> buildingList;
+    private ArrayList<Population> populationList = new ArrayList<>();
+    private ArrayList<Building> buildingList = new ArrayList<>();
 
     public void initializeDatabase()
     {
-        setBuildings();
-        setPopulation();
+        setBuildingList();
+        setPopulationList();
     }
 
     public ArrayList<Population> getPopulationList()
@@ -56,7 +56,12 @@ public class Database
         return buildingList;
     }
 
-    private void setBuildings()
+    public int getVersionNumber()
+    {
+        return VERSION_NO;
+    }
+
+    private void setBuildingList()
     {
         lumberJacksHut          = new Building("lumberjacks_hut",       15, "none",                 "none",                 0);
         sawmill                 = new Building("sawmill",               15, "lumberjacks_hut",      "none",                 0);
@@ -207,7 +212,7 @@ public class Database
         buildingList.add(coachMaker);
     }
 
-    private void setPopulation()
+    private void setPopulationList()
     {
         ArrayList<PopulationBuilding> farmerReqList = new ArrayList();
         farmerReqList.add(new PopulationBuilding(fishery,               0.0025));
