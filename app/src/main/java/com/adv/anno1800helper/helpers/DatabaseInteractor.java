@@ -36,32 +36,38 @@ public class DatabaseInteractor
 
     private boolean needsReplacing(Database database)
     {
+        openDatabase();
+
         if(database.getVersionNumber()==0)
         {
+            closeDatabase();
             return true;
         }
         else if(isDBVersionNew())
         {
+            closeDatabase();
             return true;
         }
         else
         {
+            closeDatabase();
             return false;
         }
     }
 
     public void initializeDatabase()
     {
-        openDatabase();
         anno1800DB = new Database();
 
         if(needsReplacing(anno1800DB))
         {
+            openDatabase();
             //drop all tables
             sql.execSQL("DROP TABLE IF EXISTS version");
             sql.execSQL("DROP TABLE IF EXISTS population");
-            sql.execSQL("DROP TABLE IF EXISTS buildings");
+            sql.execSQL("DROP TABLE IF EXISTS building");
             addVersionTable();
+            openDatabase();
 
             //recreating tables for population and buildings
             anno1800DB.initializeDatabase();
@@ -70,19 +76,24 @@ public class DatabaseInteractor
 
             addPopulationTable(populationList);
             addBuildingTable(buildingList);
-            closeDatabase();
         }
     }
 
     private void addVersionTable()
     {
+        openDatabase();
+
         //recreating version table containing the database's version number
         sql.execSQL("CREATE TABLE version (version_number INTEGER)");
         sql.execSQL("INSERT INTO version (version_number) VALUES (" + anno1800DB.getVersionNumber() + ")");
+
+        closeDatabase();
     }
 
     private void addPopulationTable(ArrayList<Population> populationList)
     {
+        openDatabase();
+
         //get list of unique resource names that are needed from the entire population
         ArrayList<String> populationResourceList = getPopulationNeedsList(populationList);
 
@@ -105,7 +116,8 @@ public class DatabaseInteractor
         //loops through list of population to insert values for each row, one for each population type8
         for(int i=0; i<populationList.size(); i++)
         {
-            String insertPopValuesCommand = "INSERT INTO population (" + populationList.get(i).getName();
+            String insertPopValuesCommand = "INSERT INTO population VALUES ('" +
+                    populationList.get(i).getName() + "'";
 
             //loop through list of resource needs used following column order
             for(int j=0; j<populationResourceList.size(); j++)
@@ -124,21 +136,25 @@ public class DatabaseInteractor
 
                 if(matchIndex>=0)
                 {
-                    insertPopValuesCommand += ", " +
-                            populationList.get(i).getResourceNeeds().get(matchIndex).getConsumptionRate();
+                    insertPopValuesCommand += ", '" +
+                            populationList.get(i).getResourceNeeds().get(matchIndex).getConsumptionRate() +
+                            "'";
                 }
                 else
                 {
-                    insertPopValuesCommand += ", 0.0";
+                    insertPopValuesCommand += ", '0.0'";
                 }
             }
             insertPopValuesCommand += ")";
             sql.execSQL(insertPopValuesCommand);
         }
+        closeDatabase();
     }
 
     private void addBuildingTable(ArrayList<Building> buildingList)
     {
+        openDatabase();
+
         //setup column names and value types in building table
         //CREATE TABLE [tableName] ([colmnId] [columnDataTypes]) , ......
         String createBuildingTableCommand = "CREATE TABLE building (name TEXT, production_time INTEGER, " +
@@ -150,19 +166,22 @@ public class DatabaseInteractor
         //INSERT INTO [table_name] ([column_name1] , [column_name2]) VALUES ([row1_col1] , [row1_col2])
         for(int i=0; i<buildingList.size(); i++)
         {
-            String insertBuildingTableCommand = "INSERT INTO building (" +
-                    ", " + buildingList.get(i).getName() +
+            String insertBuildingTableCommand = "INSERT INTO building VALUES (" +
+                    "'"  + buildingList.get(i).getName() + "'" +
                     ", " + buildingList.get(i).getProductionTime() +
-                    ", " + buildingList.get(i).getFirstRequiredResource() +
-                    ", " + buildingList.get(i).getSecondRequiredResource() +
+                    ", '" + buildingList.get(i).getFirstRequiredResource() + "'" +
+                    ", '" + buildingList.get(i).getSecondRequiredResource() + "'" +
                     ", " + buildingList.get(i).getRequiresRelectricity() + ")";
 
             sql.execSQL(insertBuildingTableCommand);
         }
+        closeDatabase();
     }
 
     private boolean isDBVersionNew()
     {
+        openDatabase();
+
         boolean isNew = false;
         Cursor query = sql.rawQuery("SELECT version_number FROM version;", null);
 
@@ -176,6 +195,7 @@ public class DatabaseInteractor
             }
         }
         query.close();
+        closeDatabase();
         return isNew;
     }
 
@@ -207,19 +227,23 @@ public class DatabaseInteractor
         openDatabase();
 
         //get row
-        Cursor popQuery= sql.rawQuery("SELECT * FROM population WHERE name = " +
-                populationName, null);
+        Cursor popQuery= sql.rawQuery("SELECT * FROM population WHERE name = '" +
+                populationName + "'", null);
 
         //loop through the columns of a row
-        for(int i=1; i<popQuery.getColumnCount(); i++)
+        for(int i=0; i<popQuery.getColumnCount(); i++)
         {
-            if(!popQuery.isNull(i))
+            if(popQuery.moveToFirst() && i!=0)
             {
-                Building building = getBuiliding(popQuery.getColumnName(i));
-                double consumptionRate = Double.parseDouble(popQuery.getString(i));
+                if(!popQuery.isNull(i))
+                {
+                    Building building = getBuiliding(popQuery.getColumnName(i));
+                    double consumptionRate = Double.parseDouble(popQuery.getString(i));
 
-                populationBuildingList.add(new PopulationBuilding(building, consumptionRate));
+                    populationBuildingList.add(new PopulationBuilding(building, consumptionRate));
+                }
             }
+
         }
 
         popQuery.close();
@@ -238,17 +262,17 @@ public class DatabaseInteractor
         int requiresElectricity = 0;
 
         //getting all variables for a building object
-        Cursor productionTimeQuery = sql.rawQuery("SELECT production_time FROM population " +
-                "WHERE name = " + buildingName + ";", null);
+        Cursor productionTimeQuery = sql.rawQuery("SELECT production_time FROM building " +
+                "WHERE name = '" + buildingName + "';", null);
 
         Cursor firstRequiredResourceQuery = sql.rawQuery("SELECT first_required_resource " +
-                "FROM population WHERE name = " + buildingName + ";", null);
+                "FROM building WHERE name = '" + buildingName + "';", null);
 
         Cursor secondRequiredResourceQuery = sql.rawQuery("SELECT second_required_resource " +
-                "FROM population WHERE name = " + buildingName + ";", null);
+                "FROM building WHERE name = '" + buildingName + "';", null);
 
         Cursor requireElectricityQuery = sql.rawQuery("SELECT requires_electricity " +
-                "FROM population WHERE name = " + buildingName + ";", null);
+                "FROM building WHERE name = '" + buildingName + "';", null);
 
         if(productionTimeQuery.moveToFirst() && firstRequiredResourceQuery.moveToFirst() &&
                 secondRequiredResourceQuery.moveToFirst() && requireElectricityQuery.moveToFirst())
@@ -267,5 +291,15 @@ public class DatabaseInteractor
 
         return new Building(buildingName, productionTime, firstRequiredResource,
                 secondRequiredResource, requiresElectricity);
+    }
+
+    public void test()
+    {
+        openDatabase();
+
+        Cursor productionTimeQuery = sql.rawQuery("SELECT * FROM population " +
+                "WHERE name = 'fishery';", null);
+
+        closeDatabase();
     }
 }
