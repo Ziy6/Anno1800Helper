@@ -44,8 +44,7 @@
                 android:id="@+id/farmer_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:inputType="number"
-                android:text="0" />
+                android:inputType="number"/>
 
             <ImageView
                 android:id="@+id/worker_button"
@@ -55,7 +54,6 @@
                 android:id="@+id/worker_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0"
                 android:inputType="number"/>
 
             <ImageView
@@ -66,7 +64,6 @@
                 android:id="@+id/artistan_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0"
                 android:inputType="number"/>
 
             <ImageView
@@ -77,7 +74,6 @@
                 android:id="@+id/engineer_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0"
                 android:inputType="number"/>
 
             <ImageView
@@ -88,7 +84,6 @@
                 android:id="@+id/investor_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0"
                 android:inputType="number"/>
 
         </GridLayout>
@@ -110,8 +105,8 @@
                 android:id="@+id/jornaleros_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0"
-                android:inputType="number" />
+                android:inputType="number"
+                android:imeOptions="actionNext"/>
 
             <ImageView
                 android:id="@+id/obreros_button"
@@ -121,8 +116,8 @@
                 android:id="@+id/obreros_edit_text"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="0"
-                android:inputType="number" />
+                android:inputType="number"
+                android:imeOptions="actionNext"/>
 
         </GridLayout>
 
@@ -642,13 +637,13 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/population_plantain_kitchen_building_textview"
+                        android:id="@+id/population_fried_plantain_kitchen_building_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="0 Buildings"/>
 
                     <TextView
-                        android:id="@+id/population_plantain_kitchen_tonnage_textview"
+                        android:id="@+id/population_fried_plantain_kitchen_tonnage_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="0.0 Tonnes"/>

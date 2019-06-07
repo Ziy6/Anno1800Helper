@@ -49,7 +49,7 @@
 
                 //fills with results
                 <LinearLayout
-                    android:id="@+id/building_required_container"
+                    android:id="@+id/required_building_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">

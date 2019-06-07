@@ -4,15 +4,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.adv.anno1800helper.fragments.BuildingController;
 import com.adv.anno1800helper.fragments.PopulationController;
 import com.adv.anno1800helper.adapters.ViewPageAdaptor;
-import com.adv.anno1800helper.helpers.Building;
-import com.adv.anno1800helper.helpers.DatabaseInteractor;
-import com.adv.anno1800helper.helpers.Population;
 
 public class MainActivity extends AppCompatActivity
 {

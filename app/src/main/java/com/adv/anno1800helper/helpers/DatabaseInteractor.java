@@ -277,10 +277,17 @@ public class DatabaseInteractor
         if(productionTimeQuery.moveToFirst() && firstRequiredResourceQuery.moveToFirst() &&
                 secondRequiredResourceQuery.moveToFirst() && requireElectricityQuery.moveToFirst())
         {
-            productionTime = productionTimeQuery.getInt(0);
-            firstRequiredResource = firstRequiredResourceQuery.getString(0);
-            secondRequiredResource = secondRequiredResourceQuery.getString(0);
-            requiresElectricity = requireElectricityQuery.getInt(0);
+            if(!productionTimeQuery.isNull(0) &&
+                    !firstRequiredResourceQuery.isNull(0) &&
+                    !secondRequiredResourceQuery.isNull(0) &&
+                    !requireElectricityQuery.isNull(0))
+            {
+                productionTime = productionTimeQuery.getInt(0);
+                firstRequiredResource = firstRequiredResourceQuery.getString(0);
+                secondRequiredResource = secondRequiredResourceQuery.getString(0);
+                requiresElectricity = requireElectricityQuery.getInt(0);
+            }
+
         }
 
         productionTimeQuery.close();
@@ -291,15 +298,5 @@ public class DatabaseInteractor
 
         return new Building(buildingName, productionTime, firstRequiredResource,
                 secondRequiredResource, requiresElectricity);
-    }
-
-    public void test()
-    {
-        openDatabase();
-
-        Cursor productionTimeQuery = sql.rawQuery("SELECT * FROM population " +
-                "WHERE name = 'fishery';", null);
-
-        closeDatabase();
     }
 }
