@@ -66,7 +66,6 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
         {
             editTextList.get(i).setOnClickListener(this);           //reset the editTexts to ""
             editTextList.get(i).setOnEditorActionListener(this);    //move focus to a new editText
-            editTextList.get(i).addTextChangedListener(keyWatcher); //calculate results
         }
     }
 
@@ -78,72 +77,56 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-    {return false;}
-
-    private TextWatcher keyWatcher = new TextWatcher()
     {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after)
-        {}
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count)
-        {}
-
-        @Override
-        public void afterTextChanged(Editable s)
+        ArrayList<Consumption> consumptionList = new ArrayList<>();
+        for(int i=0; i<editTextList.size(); i++)
         {
-            ArrayList<Consumption> consumptionList = new ArrayList<>();
-            for(int i=0; i<editTextList.size(); i++)
+            //editText not empty
+            if(editTextList.get(i).getText().length()>0)
             {
-                //editText not empty
-                if(editTextList.get(i).getText().length()>0)
+                int populationNumber = Integer.parseInt(editTextList.get(i).getText().toString());
+
+                switch(i)
                 {
-                    int populationNumber = Integer.parseInt(editTextList.get(i).getText().toString());
+                    case 0:
+                        addToConsumptionList("farmer", populationNumber,
+                                consumptionList);
+                        break;
 
-                    switch(i)
-                    {
-                        case 0:
-                            addToConsumptionList("farmer", populationNumber,
-                                    consumptionList);
-                            break;
+                    case 1:
+                        addToConsumptionList("worker", populationNumber,
+                                consumptionList);
+                        break;
 
-                        case 1:
-                            addToConsumptionList("worker", populationNumber,
-                                    consumptionList);
-                            break;
+                    case 2:
+                        addToConsumptionList("artistan", populationNumber,
+                                consumptionList);
+                        break;
 
-                        case 2:
-                            addToConsumptionList("artistan", populationNumber,
-                                    consumptionList);
-                            break;
+                    case 3:
+                        addToConsumptionList("engineer", populationNumber,
+                                consumptionList);
+                        break;
 
-                        case 3:
-                            addToConsumptionList("engineer", populationNumber,
-                                    consumptionList);
-                            break;
+                    case 4:
+                        addToConsumptionList("investor", populationNumber,
+                                consumptionList);
+                        break;
 
-                        case 4:
-                            addToConsumptionList("investor", populationNumber,
-                                    consumptionList);
-                            break;
+                    case 5:
+                        addToConsumptionList("jornaleros", populationNumber,
+                                consumptionList);
+                        break;
 
-                        case 5:
-                            addToConsumptionList("jornaleros", populationNumber,
-                                    consumptionList);
-                            break;
-
-                        case 6:
-                            addToConsumptionList("obreros", populationNumber,
-                                    consumptionList);
-                            break;
-                    }
+                    case 6:
+                        addToConsumptionList("obreros", populationNumber,
+                                consumptionList);
+                        break;
                 }
             }
-
-
         }
-    };
+        return true;
+    }
 
     private void addToConsumptionList(String populationType, int populationNumber,
                                       ArrayList<Consumption> consumptionList)
