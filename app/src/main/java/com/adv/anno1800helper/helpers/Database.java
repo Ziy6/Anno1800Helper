@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Database
 {
-    private final int VERSION_NO = 0;
+    private final int VERSION_NO = 3;
 
     private final String FARMER_NAME = "farmer";
     private final String WORKER_NAME = "worker";
@@ -28,7 +28,7 @@ public class Database
             artisanalKitchen, cannery, sewingMachineFactory, cottonPlantation, cottonMill,
             huntingCabin, furDealer, copperMine, zincMine, brassSmeltery, spectacleFactory,
             filamentFactory, lightbulbFactory, bicycleFactory, caoutchoucPlantation, goldMine,
-            goldsmith, clockmaker, wineyard, champagneCellar, jeweller, pearlFarm,
+            goldsmith, clock_maker, wineyard, champagneCellar, jeweller, pearlFarm,
             marquetryWorkshop, plantainPlantation, fishOilFactory, friedPlantainKitchen,
             sugarcanePlantation, rumDistillery, alpacaFarm, ponchoDarner, cornFarm, tortillaMaker,
             coffeePlantation, coffeeRoaster, feltProducer, bombinWeaver, tobaccoPlantation,
@@ -108,7 +108,7 @@ public class Database
         caoutchoucPlantation    = new Building("caoutchouc_plantation", 60, "none",                 "none",                 0);
         goldMine                = new Building("gold_mine",             150,"none",                 "none",                 0);
         goldsmith               = new Building("goldsmith",             60, "coal_mine",            "gold_mine",            0);
-        clockmaker              = new Building("clockmaker",            90, "goldsmith",            "glass_maker",          0);
+        clock_maker              = new Building("clock_maker",            90, "goldsmith",            "glass_maker",          0);
         wineyard                = new Building("wineyard",              120,"none",                 "none",                 0);
         champagneCellar         = new Building("champagne_cellar",      30, "glass_maker",          "wineyard",             0);
         jeweller                = new Building("jeweller",              30, "goldsmith",            "pearl_farm",           0);
@@ -182,7 +182,7 @@ public class Database
         buildingList.add(caoutchoucPlantation);
         buildingList.add(goldMine);
         buildingList.add(goldsmith);
-        buildingList.add(clockmaker);
+        buildingList.add(clock_maker);
         buildingList.add(wineyard);
         buildingList.add(champagneCellar);
         buildingList.add(jeweller);
@@ -253,7 +253,7 @@ public class Database
         engineerReqList.add(new PopulationBuilding(lightbulbFactory,    0.0003));
         engineerReqList.add(new PopulationBuilding(rumDistillery,       0.0029));
         engineerReqList.add(new PopulationBuilding(bicycleFactory,      0.0006));
-        engineerReqList.add(new PopulationBuilding(clockmaker,          0.0002));
+        engineerReqList.add(new PopulationBuilding(clock_maker,          0.0002));
 
         engineer = new Population(ENGINEER_NAME, engineerReqList);
 
@@ -266,7 +266,7 @@ public class Database
         investorReqList.add(new PopulationBuilding(chocolateFactory,    0.0011));
         investorReqList.add(new PopulationBuilding(cabAssemblyLine,     0.0001));
         investorReqList.add(new PopulationBuilding(bicycleFactory,      0.0010));
-        investorReqList.add(new PopulationBuilding(clockmaker,          0.0003));
+        investorReqList.add(new PopulationBuilding(clock_maker,          0.0003));
         investorReqList.add(new PopulationBuilding(jeweller,            0.0004));
         investorReqList.add(new PopulationBuilding(gramophoneFactory,   0.0001));
 

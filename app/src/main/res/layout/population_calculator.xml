@@ -484,13 +484,13 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/population_clock_maker_factory_building_textview"
+                        android:id="@+id/population_clock_maker_building_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="0 Buildings"/>
 
                     <TextView
-                        android:id="@+id/population_clock_maker_factory_tonnage_textview"
+                        android:id="@+id/population_clock_maker_tonnage_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="0.0 Tonnes"/>

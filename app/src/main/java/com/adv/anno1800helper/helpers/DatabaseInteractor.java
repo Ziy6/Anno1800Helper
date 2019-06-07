@@ -22,6 +22,7 @@ public class DatabaseInteractor
     public DatabaseInteractor(Context context)
     {
         this.context = context;
+        initializeDatabase();
     }
 
     private void openDatabase()

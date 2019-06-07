@@ -1,8 +1,5 @@
 package com.adv.anno1800helper.fragments;
 
-
-import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,9 +27,10 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
 {
     private DatabaseInteractor databaseInteractor;
     private ArrayList<EditText> editTextList = new ArrayList<>();
+    private ArrayList<PopulationBuilding> populationBuildingList = new ArrayList<>();
     private View view;
-    private EditText farmerEditText, workerEditText, artistanEditText, engineerEditText, investorEditText,
-            jornalerosEditText, obrerosEditText;
+    private EditText farmerEditText, workerEditText, artistanEditText, engineerEditText,
+            investorEditText, jornalerosEditText, obrerosEditText;
 
     @Nullable
     @Override
@@ -140,11 +138,11 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
     private void addResults(String populationType, int populationNumber)
     {
         Population population = databaseInteractor.getPopulation(populationType);
-        ArrayList<PopulationBuilding> resourceNeedsList = population.getResourceNeeds();
+        populationBuildingList = addUniqueList(populationBuildingList, population.getResourceNeeds());
 
-        //loop through all population editTexts
         for(int i=0; i<resourceNeedsList.size(); i++)
         {
+            //calculate & add tonnage to a list along with name of view
             int buildingId = getResources().getIdentifier("population_" +
                             resourceNeedsList.get(i).getName() + "_building_textview", "id",
                     getContext().getPackageName());
@@ -159,7 +157,7 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
             double tonnageNeeded =
                     Double.parseDouble(tonnageTextView.getText().toString().
                             substring(0, tonnageTextView.getText().toString().length()-7))
-                    + calculateTonnage(resourceNeedsList.get(i).getConsumptionRate(),
+                            + calculateTonnage(resourceNeedsList.get(i).getConsumptionRate(),
                             populationNumber);
 
             int buildingsNeeed =
@@ -181,16 +179,40 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
         return resourceConsumption * populationNumber;
     }
 
-    private String roundNumbers(double numbers, int roundBy)
+    private ArrayList<PopulationBuilding> addUniqueList(ArrayList<PopulationBuilding> listToAdd,
+                                                        ArrayList<PopulationBuilding> listAddedTo)
+    {
+        ArrayList<PopulationBuilding> uniqueList = new ArrayList<>();
+
+        for(int i=0; i<listToAdd.size(); i++)
+        {
+            boolean isUnique = true;
+            for(int j=0; j<listAddedTo.size(); j++)
+            {
+                if(listAddedTo.get(j).getName().equals(listToAdd.get(i).getName()))
+                {
+                    isUnique = false;
+                }
+            }
+            if(isUnique==true)
+            {
+                listAddedTo.add(listToAdd.get(i));
+            }
+        }
+    }
+
+    private double roundNumbers(double numbers, int roundBy)
     {
         String decimalPlace = "#.#";
+
         for(int i=1; i<roundBy; i++)
+        {
             decimalPlace += "#";
+        }
 
         DecimalFormat df = new DecimalFormat(decimalPlace);
         df.setRoundingMode(RoundingMode.CEILING);
 
-        return df.format(numbers);
+        return Double.parseDouble(df.format(numbers));
     }
-
 }
