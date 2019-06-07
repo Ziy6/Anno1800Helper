@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.adv.anno1800helper.R;
+import com.adv.anno1800helper.helpers.Consumption;
 import com.adv.anno1800helper.helpers.DatabaseInteractor;
 import com.adv.anno1800helper.helpers.Population;
 import com.adv.anno1800helper.helpers.PopulationBuilding;
@@ -27,7 +28,6 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
 {
     private DatabaseInteractor databaseInteractor;
     private ArrayList<EditText> editTextList = new ArrayList<>();
-    private ArrayList<PopulationBuilding> populationBuildingList = new ArrayList<>();
     private View view;
     private EditText farmerEditText, workerEditText, artistanEditText, engineerEditText,
             investorEditText, jornalerosEditText, obrerosEditText;
@@ -93,6 +93,7 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
         @Override
         public void afterTextChanged(Editable s)
         {
+            ArrayList<Consumption> consumptionList = new ArrayList<>();
             for(int i=0; i<editTextList.size(); i++)
             {
                 //editText not empty
@@ -103,68 +104,109 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
                     switch(i)
                     {
                         case 0:
-                            addResults("farmer", populationNumber);
+                            addToConsumptionList("farmer", populationNumber,
+                                    consumptionList);
                             break;
 
                         case 1:
-                            addResults("worker", populationNumber);
+                            addToConsumptionList("worker", populationNumber,
+                                    consumptionList);
                             break;
 
                         case 2:
-                            addResults("artistan", populationNumber);
+                            addToConsumptionList("artistan", populationNumber,
+                                    consumptionList);
                             break;
 
                         case 3:
-                            addResults("engineer", populationNumber);
+                            addToConsumptionList("engineer", populationNumber,
+                                    consumptionList);
                             break;
 
                         case 4:
-                            addResults("investor", populationNumber);
+                            addToConsumptionList("investor", populationNumber,
+                                    consumptionList);
                             break;
 
                         case 5:
-                            addResults("jornaleros", populationNumber);
+                            addToConsumptionList("jornaleros", populationNumber,
+                                    consumptionList);
                             break;
 
                         case 6:
-                            addResults("obreros", populationNumber);
+                            addToConsumptionList("obreros", populationNumber,
+                                    consumptionList);
                             break;
                     }
                 }
             }
+
+
         }
     };
 
-    private void addResults(String populationType, int populationNumber)
+    private void addToConsumptionList(String populationType, int populationNumber,
+                                      ArrayList<Consumption> consumptionList)
     {
         Population population = databaseInteractor.getPopulation(populationType);
-        populationBuildingList = addUniqueList(populationBuildingList, population.getResourceNeeds());
+        ArrayList<PopulationBuilding> resourceNeedsList =  population.getResourceNeeds();
 
+        //loop through current population's needs list, add new consumption tonnages to list
         for(int i=0; i<resourceNeedsList.size(); i++)
         {
-            //calculate & add tonnage to a list along with name of view
-            int buildingId = getResources().getIdentifier("population_" +
-                            resourceNeedsList.get(i).getName() + "_building_textview", "id",
+            if(consumptionList.size()!=0)
+            {
+                //if current population resource already exists in global list, return index
+                int consumptionIndex = existsIn(consumptionList, resourceNeedsList.get(i).getName());
+
+                if(consumptionIndex>=0)
+                {
+                    consumptionList.get(consumptionIndex).addTonnage
+                            (calculateTonnage(resourceNeedsList.get(i).getConsumptionRate(),
+                                    populationNumber));
+                }
+                else
+                {
+                    consumptionList.add(new Consumption(resourceNeedsList.get(i).getName(),
+                            calculateTonnage(resourceNeedsList.get(i).getConsumptionRate(),
+                                    populationNumber)));
+                }
+            }
+            else
+            {
+                consumptionList.add(new Consumption(resourceNeedsList.get(i).getName(),
+                        calculateTonnage(resourceNeedsList.get(i).getConsumptionRate(),
+                                populationNumber)));
+            }
+        }
+        addToViews(consumptionList);
+    }
+
+    private void addToViews(ArrayList<Consumption> consumptionList)
+    {
+        //loop through global list and add to views
+        for(int i=0; i<consumptionList.size(); i++)
+        {
+            //getting the 2 views for current resource
+            int tonnageId = getResources().getIdentifier("population_" +
+                           consumptionList.get(i).getName() + "_tonnage_textview", "id",
                     getContext().getPackageName());
 
-            int tonnageId = getResources().getIdentifier("population_" +
-                            resourceNeedsList.get(i).getName() + "_tonnage_textview", "id",
+            int buildingId = getResources().getIdentifier("population_" +
+                            consumptionList.get(i).getName() + "_building_textview", "id",
                     getContext().getPackageName());
 
             TextView tonnageTextView = view.findViewById(tonnageId);
             TextView buildingTextView = view.findViewById(buildingId);
 
-            double tonnageNeeded =
-                    Double.parseDouble(tonnageTextView.getText().toString().
-                            substring(0, tonnageTextView.getText().toString().length()-7))
-                            + calculateTonnage(resourceNeedsList.get(i).getConsumptionRate(),
-                            populationNumber);
-
+            //calculate final building number and add
             int buildingsNeeed =
-                    calculateBuildingNumber(resourceNeedsList.get(i).getProductionTime(),
-                            tonnageNeeded);
+                    calculateBuildingNumber(databaseInteractor.
+                                    getBuiliding(consumptionList.get(i).getName()).getProductionTime(),
+                            consumptionList.get(i).getTonnage());
 
-            tonnageTextView.setText(tonnageNeeded + " Tonnes");
+            tonnageTextView.setText(roundNumbers(consumptionList.get(i).getTonnage(), 1)
+                    + " Tonnes");
             buildingTextView.setText(buildingsNeeed + " Buildings");
         }
     }
@@ -179,29 +221,19 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
         return resourceConsumption * populationNumber;
     }
 
-    private ArrayList<PopulationBuilding> addUniqueList(ArrayList<PopulationBuilding> listToAdd,
-                                                        ArrayList<PopulationBuilding> listAddedTo)
+    private int existsIn(ArrayList<Consumption> list, String name)
     {
-        ArrayList<PopulationBuilding> uniqueList = new ArrayList<>();
-
-        for(int i=0; i<listToAdd.size(); i++)
+        for(int i=0; i<list.size(); i++)
         {
-            boolean isUnique = true;
-            for(int j=0; j<listAddedTo.size(); j++)
+            if(list.get(i).equals(name))
             {
-                if(listAddedTo.get(j).getName().equals(listToAdd.get(i).getName()))
-                {
-                    isUnique = false;
-                }
-            }
-            if(isUnique==true)
-            {
-                listAddedTo.add(listToAdd.get(i));
+                return i;
             }
         }
+        return -1;
     }
 
-    private double roundNumbers(double numbers, int roundBy)
+    private String roundNumbers(double numbers, int roundBy)
     {
         String decimalPlace = "#.#";
 
@@ -213,6 +245,6 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
         DecimalFormat df = new DecimalFormat(decimalPlace);
         df.setRoundingMode(RoundingMode.CEILING);
 
-        return Double.parseDouble(df.format(numbers));
+        return df.format(numbers);
     }
 }
