@@ -98,78 +98,56 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
 
             for(int i=0; i<editTextList.size(); i++)    //loops through all textEdits for population
             {
-                if(editTextList.get(i).getText().length()>0)
+                int populationNumber;
+
+                if(editTextList.get(i).getText().toString().equals(""))
                 {
-                    int populationNumber;
+                    populationNumber = 0;
+                }
+                else
+                {
+                    populationNumber = Integer.parseInt(editTextList.get(i).getText().toString());
+                }
 
-                    if(editTextList.get(i).getText().toString().equals(""))
-                    {
-                        populationNumber = 0;
-                    }
-                    else
-                    {
-                        populationNumber = Integer.parseInt(editTextList.get(i).getText().toString());
-                    }
+                switch(i)
+                {
+                    case 0:
+                        addResourceNumbers("farmer", populationNumber,
+                                firstCall);
+                        firstCall = false;
+                        break;
 
-                    switch(i)
-                    {
-                        case 0:
-                            if(populationNumber!=0)
-                            {
-                                addResourceNumbers("farmer", populationNumber,
-                                        firstCall);
-                                firstCall = false;
-                            }
-                            break;
+                    case 1:
+                        addResourceNumbers("worker", populationNumber,
+                                firstCall);
+                        break;
 
-                        case 1:
-                            if(populationNumber!=0)
-                            {
-                                addResourceNumbers("worker", populationNumber,
-                                        firstCall);
-                            }
-                            break;
+                    case 2:
+                        addResourceNumbers("artistan", populationNumber,
+                                firstCall);
+                        break;
 
-                        case 2:
-                            if(populationNumber!=0)
-                            {
-                                addResourceNumbers("artistan", populationNumber,
-                                        firstCall);
-                            }
-                            break;
+                    case 3:
+                        addResourceNumbers("engineer", populationNumber,
+                                firstCall);
+                        break;
 
-                        case 3:
-                            if(populationNumber!=0)
-                            {
-                                addResourceNumbers("engineer", populationNumber,
-                                        firstCall);
-                            }
-                            break;
+                    case 4:
+                        addResourceNumbers("investor", populationNumber,
+                                firstCall);
 
-                        case 4:
-                            if(populationNumber!=0)
-                            {
-                                addResourceNumbers("investor", populationNumber,
-                                        firstCall);
-                            }
-                            break;
+                        break;
 
-                        case 5:
-                            if(populationNumber!=0)
-                            {
-                                addResourceNumbers("jornalero", populationNumber,
-                                        firstCall);
-                            }
-                            break;
+                    case 5:
+                        addResourceNumbers("jornalero", populationNumber,
+                                firstCall);
+                        break;
 
-                        case 6:
-                            if(populationNumber!=0)
-                            {
-                                addResourceNumbers("obrero", populationNumber,
-                                        firstCall);
-                            }
-                            break;
-                    }
+                    case 6:
+
+                        addResourceNumbers("obrero", populationNumber,
+                                firstCall);
+                        break;
                 }
             }
 
@@ -191,7 +169,7 @@ public class PopulationCalculator extends Fragment implements View.OnClickListen
         for(int i=0; i<resourceNeedsList.size(); i++)
         {
             //firstCall needed to reset all resource textViews in/passed to 'addToViews()' method
-            if(resourceNeedsList.get(i).getConsumptionRate()>0.00 || firstCall!=true)
+            if(resourceNeedsList.get(i).getConsumptionRate()>0.00 || firstCall==true)
             {
                 double tonnage = calculateTonnage(resourceNeedsList.get(i).getConsumptionRate(),
                         populationNumber);

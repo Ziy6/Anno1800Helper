@@ -204,6 +204,7 @@ public class DatabaseInteractor
         //loop through the columns of a row
         for(int i=0; i<popQuery.getColumnCount(); i++)
         {
+            //skip name column
             if(popQuery.moveToFirst() && i!=0)
             {
                 if(!popQuery.isNull(i))

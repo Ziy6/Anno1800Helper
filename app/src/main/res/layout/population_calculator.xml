@@ -181,7 +181,7 @@
                     android:background="@drawable/framework_knitter" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -203,7 +203,7 @@
                     android:background="@drawable/schnapps_distillery" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -225,7 +225,7 @@
                     android:background="@drawable/slaughterhouse" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -247,7 +247,7 @@
                     android:background="@drawable/bakery" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -269,7 +269,7 @@
                     android:background="@drawable/soap_factory" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -291,7 +291,7 @@
                     android:background="@drawable/brewery" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -313,7 +313,7 @@
                     android:background="@drawable/cannery" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -336,7 +336,7 @@
                     android:background="@drawable/sewing_machine_factory" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -358,7 +358,7 @@
                     android:background="@drawable/fur_dealer" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -380,7 +380,7 @@
                     android:background="@drawable/rum_distillery" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -403,13 +403,13 @@
                     android:background="@drawable/spectacle_factory" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/population_spectacle_factory_building_textview"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="0 Buildings" />
 
                     <TextView
@@ -425,7 +425,7 @@
                     android:background="@drawable/coffee_roaster" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -447,13 +447,13 @@
                     android:background="@drawable/lightbulb_factory"/>
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/population_lightbulb_factory_building_textview"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="0 Buildings" />
 
                     <TextView
@@ -467,11 +467,11 @@
                 <ImageView
                     android:id="@+id/population_bicycle_factory_button"
                     android:layout_width="40dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="@drawable/bicycle_factory" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -493,7 +493,7 @@
                     android:background="@drawable/clock_maker" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -515,7 +515,7 @@
                     android:background="@drawable/champagne_cellar" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -537,7 +537,7 @@
                     android:background="@drawable/cigar_factory" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -559,7 +559,7 @@
                     android:background="@drawable/chocolate_factory" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -581,7 +581,7 @@
                     android:background="@drawable/cab_assembly_line" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -603,7 +603,7 @@
                     android:background="@drawable/jeweller" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -626,7 +626,7 @@
                     android:background="@drawable/gramophone_factory" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -648,7 +648,7 @@
                     android:background="@drawable/fried_plaintain_kitchen" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -670,7 +670,7 @@
                     android:background="@drawable/poncho_darner" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -692,7 +692,7 @@
                     android:background="@drawable/tortilla_maker" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
@@ -714,7 +714,7 @@
                     android:background="@drawable/bombin_weaver" />
 
                 <LinearLayout
-                    android:gravity="center"
+                    android:gravity="left"
                     android:orientation="vertical">
 
                     <TextView
