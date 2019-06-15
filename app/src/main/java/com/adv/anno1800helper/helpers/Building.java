@@ -10,11 +10,11 @@ public class Building
     private String secondRequiredResource;
     private int requiresElectricity;
 
-    /***************************************************************************************************
+    /***********************************************************************************************
      *
      *  A class that represents a building type
      *
-     **************************************************************************************************/
+     **********************************************************************************************/
 
     public Building(String name, int productionTime, String firstRequiredResource,
                     String secondRequiredResource, int requiresElectricity)

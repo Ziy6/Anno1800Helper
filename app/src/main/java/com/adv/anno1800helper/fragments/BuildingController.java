@@ -11,10 +11,14 @@ import android.view.ViewGroup;
 
 import com.adv.anno1800helper.R;
 
+/***************************************************************************************************
+ *
+ *  A class that setups a layout container to add the building fragment(s) to it
+ *
+ **************************************************************************************************/
 
 public class BuildingController extends Fragment
 {
-    private View view;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState)

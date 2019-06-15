@@ -12,6 +12,13 @@ import android.widget.Button;
 
 import com.adv.anno1800helper.R;
 
+/***************************************************************************************************
+ *
+ *  A class setups the building calculator fragment layout and handles inputs to be passed to the
+ *  BuildingResults class for calculation and the displaying of results
+ *
+ **************************************************************************************************/
+
 public class BuildingCalculator  extends Fragment implements View.OnClickListener
 {
     private final String TAG = "BUILDING_CALCULATOR";

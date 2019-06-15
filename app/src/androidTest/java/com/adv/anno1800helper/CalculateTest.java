@@ -24,7 +24,7 @@ public class CalculateTest
 
     public static void main(String[] args)
     {
-        System.out.println(roundNumbers(0.12345, 2));
+        System.out.println(roundNumbers(1234.56789, 4));
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**************************************************************************************************
  *
- * A class which methods interract with the Anno1800 database in the android device
+ * A class which methods interact with the Anno1800 database in the android device
  *
  *************************************************************************************************/
 
@@ -22,6 +22,7 @@ public class DatabaseInteractor
     public DatabaseInteractor(Context context)
     {
         this.context = context;
+        openDatabase();
         initializeDatabase();
     }
 
@@ -30,30 +31,9 @@ public class DatabaseInteractor
         sql = context.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
     }
 
-    private void closeDatabase()
+    public void closeDatabase()
     {
         sql.close();
-    }
-
-    private boolean needsReplacing(Database database)
-    {
-        openDatabase();
-
-        if(database.getVersionNumber()==0)
-        {
-            closeDatabase();
-            return true;
-        }
-        else if(isDBVersionNew())
-        {
-            closeDatabase();
-            return true;
-        }
-        else
-        {
-            closeDatabase();
-            return false;
-        }
     }
 
     public void initializeDatabase()
@@ -62,13 +42,11 @@ public class DatabaseInteractor
 
         if(needsReplacing(anno1800DB))
         {
-            openDatabase();
             //drop all tables
             sql.execSQL("DROP TABLE IF EXISTS version");
             sql.execSQL("DROP TABLE IF EXISTS population");
             sql.execSQL("DROP TABLE IF EXISTS building");
             addVersionTable();
-            openDatabase();
 
             //recreating tables for population and buildings
             anno1800DB.initializeDatabase();
@@ -80,109 +58,17 @@ public class DatabaseInteractor
         }
     }
 
-    private void addVersionTable()
+    private boolean needsReplacing(Database database)
     {
-        openDatabase();
-
-        //recreating version table containing the database's version number
-        sql.execSQL("CREATE TABLE version (version_number INTEGER)");
-        sql.execSQL("INSERT INTO version (version_number) VALUES (" + anno1800DB.getVersionNumber() + ")");
-
-        closeDatabase();
-    }
-
-    private void addPopulationTable(ArrayList<Population> populationList)
-    {
-        openDatabase();
-
-        //get list of unique resource names that are needed from the entire population
-        ArrayList<String> populationResourceList = getPopulationNeedsList(populationList);
-
-        //set up table column names and data types for the population table
-        //CREATE TABLE [tableName] ([colmnId] [columnDataTypes]) , ......
-        String createPopTableCommand = "CREATE TABLE population (name TEXT";
-
-        //loops through
-        for(int i=0; i<populationResourceList.size(); i++)
+        if(database.getVersionNumber()==0 || isDBVersionNew())
         {
-            createPopTableCommand += ", " + populationResourceList.get(i) + " TEXT";
+            return true;
         }
-
-        createPopTableCommand += ")";
-
-        sql.execSQL(createPopTableCommand);
-
-        //inserts values to the table for all rows
-        //INSERT INTO [table_name] ([column_name1] , [column_name2]) VALUES ([row1_col1] , [row1_col2])
-        //loops through list of population to insert values for each row, one for each population type8
-        for(int i=0; i<populationList.size(); i++)
-        {
-            String insertPopValuesCommand = "INSERT INTO population VALUES ('" +
-                    populationList.get(i).getName() + "'";
-
-            //loop through list of resource needs used following column order
-            for(int j=0; j<populationResourceList.size(); j++)
-            {
-                int matchIndex = -1;
-
-                //loops through all resource needs for each population
-                for(int k=0; k<populationList.get(i).getResourceNeeds().size(); k++)
-                {
-                    //if a match for the column type, save index of current population resource needs list
-                    if(populationList.get(i).getResourceNeeds().get(k).getName().equals(populationResourceList.get(j)))
-                    {
-                        matchIndex = k;
-                    }
-                }
-
-                if(matchIndex>=0)
-                {
-                    insertPopValuesCommand += ", '" +
-                            populationList.get(i).getResourceNeeds().get(matchIndex).getConsumptionRate() +
-                            "'";
-                }
-                else
-                {
-                    insertPopValuesCommand += ", '0.0'";
-                }
-            }
-            insertPopValuesCommand += ")";
-            sql.execSQL(insertPopValuesCommand);
-        }
-        closeDatabase();
-    }
-
-    private void addBuildingTable(ArrayList<Building> buildingList)
-    {
-        openDatabase();
-
-        //setup column names and value types in building table
-        //CREATE TABLE [tableName] ([colmnId] [columnDataTypes]) , ......
-        String createBuildingTableCommand = "CREATE TABLE building (name TEXT, production_time INTEGER, " +
-        "first_required_resource TEXT, second_required_resource TEXT, requires_electricity INTEGER)";
-
-        sql.execSQL(createBuildingTableCommand);
-
-        //Insert row values of buildings from a building list
-        //INSERT INTO [table_name] ([column_name1] , [column_name2]) VALUES ([row1_col1] , [row1_col2])
-        for(int i=0; i<buildingList.size(); i++)
-        {
-            String insertBuildingTableCommand = "INSERT INTO building VALUES (" +
-                    "'"  + buildingList.get(i).getName() + "'" +
-                    ", " + buildingList.get(i).getProductionTime() +
-                    ", '" + buildingList.get(i).getFirstRequiredResource() + "'" +
-                    ", '" + buildingList.get(i).getSecondRequiredResource() + "'" +
-                    ", " + buildingList.get(i).getRequiresRelectricity() + ")";
-
-            sql.execSQL(insertBuildingTableCommand);
-        }
-        closeDatabase();
+        return false;
     }
 
     private boolean isDBVersionNew()
     {
-        openDatabase();
-
         boolean isNew = false;
         Cursor query = sql.rawQuery("SELECT version_number FROM version;", null);
 
@@ -195,19 +81,104 @@ public class DatabaseInteractor
                 isNew = true;
             }
         }
-        query.close();
-        closeDatabase();
         return isNew;
     }
 
+    private void addVersionTable()
+    {
+        sql.execSQL("CREATE TABLE version (version_number INTEGER)");
+        sql.execSQL("INSERT INTO version (version_number) VALUES (" + anno1800DB.getVersionNumber()
+                + ")");
+    }
+
+    private void addPopulationTable(ArrayList<Population> populationList)
+    {
+        //get list of unique resource names that are needed from the entire population
+        ArrayList<String> populationResourceList = getPopulationNeedsList(populationList);
+
+        //set up table column names and data types for the population table using a list of unique
+        // resource as part of the column set
+        String createPopTableCommand = "CREATE TABLE population (name TEXT";
+
+        for(int i=0; i<populationResourceList.size(); i++)
+        {
+            createPopTableCommand += ", " + populationResourceList.get(i) + " TEXT";
+        }
+
+        createPopTableCommand += ")";
+
+        sql.execSQL(createPopTableCommand);
+
+        //insert values for each row by looping through list of population to, one row for each
+        //population type
+        for(int i=0; i<populationList.size(); i++)
+        {
+            String insertPopValuesCommand = "INSERT INTO population VALUES ('" +
+                    populationList.get(i).getName() + "'";
+
+            //loop through list of unique resource needs from table setup, used follows column order
+            for(int j=0; j<populationResourceList.size(); j++)
+            {
+                int matchIndex = -1;
+
+                //loops through all resource needs for each population
+                for(int k=0; k<populationList.get(i).getResourceNeeds().size(); k++)
+                {
+                    //if a match for the column type to current population resource needs list index
+                    if(populationList.get(i).getResourceNeeds().get(k).getName().
+                            equals(populationResourceList.get(j)))
+                    {
+                        matchIndex = k;
+                    }
+                }
+
+                if(matchIndex>=0)
+                {
+                    insertPopValuesCommand += ", '" + populationList.get(i).getResourceNeeds().get
+                                    (matchIndex).getConsumptionRate() + "'";
+                }
+                else
+                {
+                    insertPopValuesCommand += ", '0.0'";
+                }
+            }
+            insertPopValuesCommand += ")";
+            sql.execSQL(insertPopValuesCommand);
+        }
+    }
+
+    private void addBuildingTable(ArrayList<Building> buildingList)
+    {
+        //setup column names and value types in building table
+        String createBuildingTableCommand = "CREATE TABLE building (name TEXT, " +
+                "production_time INTEGER, first_required_resource TEXT, " +
+                "second_required_resource TEXT, requires_electricity INTEGER)";
+
+        sql.execSQL(createBuildingTableCommand);
+
+        //insert row values of buildings from a building list
+        for(int i=0; i<buildingList.size(); i++)
+        {
+            String insertBuildingTableCommand = "INSERT INTO building VALUES (" +
+                    "'"  + buildingList.get(i).getName() + "'" +
+                    ", " + buildingList.get(i).getProductionTime() +
+                    ", '" + buildingList.get(i).getFirstRequiredResource() + "'" +
+                    ", '" + buildingList.get(i).getSecondRequiredResource() + "'" +
+                    ", " + buildingList.get(i).getRequiresRelectricity() + ")";
+
+            sql.execSQL(insertBuildingTableCommand);
+        }
+    }
+
+    //gets a list of unique resources from all populations
     private ArrayList<String> getPopulationNeedsList(ArrayList<Population> populationList)
     {
         ArrayList<String> returnedNeedsList = new ArrayList<>();
 
-        //get first population object in list
         for(int x=0; x<populationList.size(); x++)
         {
-            ArrayList<PopulationBuilding> populationResourceNeedsList = populationList.get(x).getResourceNeeds();
+            ArrayList<PopulationBuilding> populationResourceNeedsList =
+                    populationList.get(x).getResourceNeeds();
 
             //loop through the list of needed resources for each population type
             for(int i=0; i<populationResourceNeedsList.size(); i++)
@@ -225,7 +196,6 @@ public class DatabaseInteractor
     public Population getPopulation(String populationName)
     {
         ArrayList<PopulationBuilding> populationBuildingList = new ArrayList<>();
-        openDatabase();
 
         //get row
         Cursor popQuery= sql.rawQuery("SELECT * FROM population WHERE name = '" +
@@ -244,19 +214,15 @@ public class DatabaseInteractor
                     populationBuildingList.add(new PopulationBuilding(building, consumptionRate));
                 }
             }
-
         }
 
         popQuery.close();
-        closeDatabase();
 
         return new Population(populationName, populationBuildingList);
     }
 
     public Building getBuiliding(String buildingName)
     {
-        openDatabase();
-
         int productionTime = 0;
         String firstRequiredResource = "";
         String secondRequiredResource = "";
@@ -295,7 +261,6 @@ public class DatabaseInteractor
         firstRequiredResourceQuery.close();
         secondRequiredResourceQuery.close();
         requireElectricityQuery.close();
-        closeDatabase();
 
         return new Building(buildingName, productionTime, firstRequiredResource,
                 secondRequiredResource, requiresElectricity);

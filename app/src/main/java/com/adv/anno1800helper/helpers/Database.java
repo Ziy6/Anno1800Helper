@@ -11,15 +11,16 @@ import java.util.ArrayList;
 
 public class Database
 {
-    private final int VERSION_NO = 3;
+    private final int VERSION_NO = 0;
 
     private final String FARMER_NAME = "farmer";
     private final String WORKER_NAME = "worker";
     private final String ARTISTAN_NAME = "artistan";
     private final String ENGINEER_NAME = "engineer";
     private final String INVESTOR_NAME = "investor";
-    private final String JORNALEROS_NAME = "jornaleros";
-    private final String OBREROS_NAME = "obreros";
+    private final String JORNALEROS_NAME = "jornalero";
+    private final String OBREROS_NAME = "obrero";
+    private ArrayList<String> populationNameList;
 
     private Building lumberJacksHut, sawmill, fishery, potatoFarm, schnappsDistillery, sheepFarm,
             frameworkKnitter, clayPit, brickFactory, grainFarm, flourMill, bakery, ironMine,
@@ -35,10 +36,22 @@ public class Database
             cigarFactory, cocaPlantation, sugarRefinery, chocolateFactory, motorAssemblyLine,
             gramophoneFactory, cabAssemblyLine, coachMaker;
 
-    private Population farmer, worker, artistan, engineer, investor, jornaleros, obreros;
+    private Population farmer, worker, artistan, engineer, investor, jornalero, obrero;
 
     private ArrayList<Population> populationList = new ArrayList<>();
     private ArrayList<Building> buildingList = new ArrayList<>();
+
+    public Database()
+    {
+        populationNameList = new ArrayList<>();
+        populationNameList.add(FARMER_NAME);
+        populationNameList.add(WORKER_NAME);
+        populationNameList.add(ARTISTAN_NAME);
+        populationNameList.add(ENGINEER_NAME);
+        populationNameList.add(INVESTOR_NAME);
+        populationNameList.add(JORNALEROS_NAME);
+        populationNameList.add(OBREROS_NAME);
+    }
 
     public void initializeDatabase()
     {
@@ -108,7 +121,7 @@ public class Database
         caoutchoucPlantation    = new Building("caoutchouc_plantation", 60, "none",                 "none",                 0);
         goldMine                = new Building("gold_mine",             150,"none",                 "none",                 0);
         goldsmith               = new Building("goldsmith",             60, "coal_mine",            "gold_mine",            0);
-        clock_maker              = new Building("clock_maker",            90, "goldsmith",            "glass_maker",          0);
+        clock_maker             = new Building("clock_maker",           90, "goldsmith",            "glass_maker",          0);
         wineyard                = new Building("wineyard",              120,"none",                 "none",                 0);
         champagneCellar         = new Building("champagne_cellar",      30, "glass_maker",          "wineyard",             0);
         jeweller                = new Building("jeweller",              30, "goldsmith",            "pearl_farm",           0);
@@ -215,89 +228,94 @@ public class Database
     private void setPopulationList()
     {
         ArrayList<PopulationBuilding> farmerReqList = new ArrayList();
-        farmerReqList.add(new PopulationBuilding(fishery,               0.0025));
-        farmerReqList.add(new PopulationBuilding(frameworkKnitter,      0.0034));
-        farmerReqList.add(new PopulationBuilding(schnappsDistillery,    0.0031));
+        farmerReqList.add(new PopulationBuilding(fishery,               0.00250));
+        farmerReqList.add(new PopulationBuilding(frameworkKnitter,      0.00333));
+        farmerReqList.add(new PopulationBuilding(schnappsDistillery,    0.00308));
 
         farmer = new Population(FARMER_NAME, farmerReqList);
 
         ArrayList<PopulationBuilding> workerReqList = new ArrayList<>();
-        workerReqList.add(new PopulationBuilding(fishery,               0.0025));
-        workerReqList.add(new PopulationBuilding(frameworkKnitter,      0.0034));
-        workerReqList.add(new PopulationBuilding(slaughterhouse,        0.0010));
-        workerReqList.add(new PopulationBuilding(bakery,                0.0009));
-        workerReqList.add(new PopulationBuilding(soapFactory,           0.0004));
-        workerReqList.add(new PopulationBuilding(schnappsDistillery,    0.0031));
-        workerReqList.add(new PopulationBuilding(brewery,               0.0008));
+        workerReqList.add(new PopulationBuilding(fishery,               0.00250));
+        workerReqList.add(new PopulationBuilding(frameworkKnitter,      0.00377));
+        workerReqList.add(new PopulationBuilding(slaughterhouse,        0.00100));
+        workerReqList.add(new PopulationBuilding(bakery,                0.00091));
+        workerReqList.add(new PopulationBuilding(soapFactory,           0.00042));
+        workerReqList.add(new PopulationBuilding(schnappsDistillery,    0.00333));
+        workerReqList.add(new PopulationBuilding(brewery,               0.00077));
 
         worker = new Population(WORKER_NAME, workerReqList);
 
         ArrayList<PopulationBuilding> artistanReqList = new ArrayList<>();
-        artistanReqList.add(new PopulationBuilding(slaughterhouse,      0.0013));
-        artistanReqList.add(new PopulationBuilding(bakery,              0.0012));
-        artistanReqList.add(new PopulationBuilding(soapFactory,         0.0012));
-        artistanReqList.add(new PopulationBuilding(cannery,             0.0012));
-        artistanReqList.add(new PopulationBuilding(sewingMachineFactory,0.0012));
-        artistanReqList.add(new PopulationBuilding(furDealer,           0.0012));
-        artistanReqList.add(new PopulationBuilding(brewery,             0.0012));
-        artistanReqList.add(new PopulationBuilding(rumDistillery,       0.0012));
+        artistanReqList.add(new PopulationBuilding(slaughterhouse,      0.00133));
+        artistanReqList.add(new PopulationBuilding(bakery,              0.00121));
+        artistanReqList.add(new PopulationBuilding(soapFactory,         0.00056));
+        artistanReqList.add(new PopulationBuilding(cannery,             0.00034));
+        artistanReqList.add(new PopulationBuilding(sewingMachineFactory,0.00095));
+        artistanReqList.add(new PopulationBuilding(furDealer,           0.00089));
+        artistanReqList.add(new PopulationBuilding(brewery,             0.00103));
+        artistanReqList.add(new PopulationBuilding(rumDistillery,       0.00190));
 
         artistan = new Population(ARTISTAN_NAME, artistanReqList);
 
         ArrayList<PopulationBuilding> engineerReqList = new ArrayList<>();
-        engineerReqList.add(new PopulationBuilding(cannery,             0.0005));
-        engineerReqList.add(new PopulationBuilding(sewingMachineFactory,0.0014));
-        engineerReqList.add(new PopulationBuilding(furDealer,           0.0013));
-        engineerReqList.add(new PopulationBuilding(spectacleFactory,    0.0002));
-        engineerReqList.add(new PopulationBuilding(coffeeRoaster,       0.0012));
-        engineerReqList.add(new PopulationBuilding(lightbulbFactory,    0.0003));
-        engineerReqList.add(new PopulationBuilding(rumDistillery,       0.0029));
-        engineerReqList.add(new PopulationBuilding(bicycleFactory,      0.0006));
-        engineerReqList.add(new PopulationBuilding(clock_maker,          0.0002));
+        engineerReqList.add(new PopulationBuilding(cannery,             0.00051));
+        engineerReqList.add(new PopulationBuilding(sewingMachineFactory,0.00143));
+        engineerReqList.add(new PopulationBuilding(furDealer,           0.00133));
+        engineerReqList.add(new PopulationBuilding(spectacleFactory,    0.00022));
+        engineerReqList.add(new PopulationBuilding(coffeeRoaster,       0.00117));
+        engineerReqList.add(new PopulationBuilding(lightbulbFactory,    0.00031));
+        engineerReqList.add(new PopulationBuilding(rumDistillery,       0.00286));
+        engineerReqList.add(new PopulationBuilding(bicycleFactory,      0.00063));
+        engineerReqList.add(new PopulationBuilding(clock_maker,         0.00020));
 
         engineer = new Population(ENGINEER_NAME, engineerReqList);
 
         ArrayList<PopulationBuilding> investorReqList = new ArrayList<>();
-        investorReqList.add(new PopulationBuilding(spectacleFactory,    0.0004));
-        investorReqList.add(new PopulationBuilding(coffeeRoaster,       0.0019));
-        investorReqList.add(new PopulationBuilding(lightbulbFactory,    0.0005));
-        investorReqList.add(new PopulationBuilding(champagneCellar,     0.0005));
-        investorReqList.add(new PopulationBuilding(cigarFactory,        0.0004));
-        investorReqList.add(new PopulationBuilding(chocolateFactory,    0.0011));
-        investorReqList.add(new PopulationBuilding(cabAssemblyLine,     0.0001));
-        investorReqList.add(new PopulationBuilding(bicycleFactory,      0.0010));
-        investorReqList.add(new PopulationBuilding(clock_maker,          0.0003));
-        investorReqList.add(new PopulationBuilding(jeweller,            0.0004));
-        investorReqList.add(new PopulationBuilding(gramophoneFactory,   0.0001));
+        investorReqList.add(new PopulationBuilding(spectacleFactory,    0.00036));
+        investorReqList.add(new PopulationBuilding(coffeeRoaster,       0.00188));
+        investorReqList.add(new PopulationBuilding(lightbulbFactory,    0.00050));
+        investorReqList.add(new PopulationBuilding(champagneCellar,     0.00047));
+        investorReqList.add(new PopulationBuilding(cigarFactory,        0.00044));
+        investorReqList.add(new PopulationBuilding(chocolateFactory,    0.00107));
+        investorReqList.add(new PopulationBuilding(cabAssemblyLine,     0.00013));
+        investorReqList.add(new PopulationBuilding(bicycleFactory,      0.00100));
+        investorReqList.add(new PopulationBuilding(clock_maker,         0.00031));
+        investorReqList.add(new PopulationBuilding(jeweller,            0.00042));
+        investorReqList.add(new PopulationBuilding(gramophoneFactory,   0.00011));
 
         investor = new Population(INVESTOR_NAME, investorReqList);
 
         ArrayList<PopulationBuilding> jornalerosReqList = new ArrayList<>();
-        jornalerosReqList.add(new PopulationBuilding(friedPlantainKitchen,  0.0029));
-        jornalerosReqList.add(new PopulationBuilding(ponchoDarner,          0.0014));
-        jornalerosReqList.add(new PopulationBuilding(rumDistillery,         0.0025));
+        jornalerosReqList.add(new PopulationBuilding(friedPlantainKitchen, 0.00286));
+        jornalerosReqList.add(new PopulationBuilding(ponchoDarner,         0.00143));
+        jornalerosReqList.add(new PopulationBuilding(rumDistillery,        0.00250));
 
-        jornaleros = new Population(JORNALEROS_NAME, jornalerosReqList);
+        jornalero = new Population(JORNALEROS_NAME, jornalerosReqList);
 
         ArrayList<PopulationBuilding> obrerosReqList = new ArrayList<>();
-        obrerosReqList.add(new PopulationBuilding(friedPlantainKitchen,     0.0029));
-        obrerosReqList.add(new PopulationBuilding(ponchoDarner,             0.0025));
-        obrerosReqList.add(new PopulationBuilding(tortillaMaker,            0.0014));
-        obrerosReqList.add(new PopulationBuilding(coffeeRoaster,            0.0006));
-        obrerosReqList.add(new PopulationBuilding(bombinWeaver,             0.0013));
-        obrerosReqList.add(new PopulationBuilding(sewingMachineFactory,     0.0013));
-        obrerosReqList.add(new PopulationBuilding(rumDistillery,            0.0014));
-        obrerosReqList.add(new PopulationBuilding(brewery,                  0.0013));
-        obrerosReqList.add(new PopulationBuilding(cigarFactory,             0.0006));
+        obrerosReqList.add(new PopulationBuilding(friedPlantainKitchen,    0.00286));
+        obrerosReqList.add(new PopulationBuilding(ponchoDarner,            0.00250));
+        obrerosReqList.add(new PopulationBuilding(tortillaMaker,           0.00143));
+        obrerosReqList.add(new PopulationBuilding(coffeeRoaster,           0.00059));
+        obrerosReqList.add(new PopulationBuilding(bombinWeaver,            0.00133));
+        obrerosReqList.add(new PopulationBuilding(sewingMachineFactory,    0.00125));
+        obrerosReqList.add(new PopulationBuilding(rumDistillery,           0.00143));
+        obrerosReqList.add(new PopulationBuilding(brewery,                 0.00133));
+        obrerosReqList.add(new PopulationBuilding(cigarFactory,            0.00056));
 
-        obreros = new Population(OBREROS_NAME, obrerosReqList);
+        obrero = new Population(OBREROS_NAME, obrerosReqList);
 
         populationList.add(farmer);
         populationList.add(worker);
         populationList.add(artistan);
         populationList.add(engineer);
         populationList.add(investor);
-        populationList.add(jornaleros);
-        populationList.add(obreros);
+        populationList.add(jornalero);
+        populationList.add(obrero);
+    }
+
+    public ArrayList<String> getPopulationNameList()
+    {
+        return populationNameList;
     }
 }

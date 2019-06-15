@@ -11,6 +11,12 @@ import android.view.ViewGroup;
 
 import com.adv.anno1800helper.R;
 
+/***************************************************************************************************
+ *
+ *  A class that setups a layout container to add the population fragment(s) to it
+ *
+ **************************************************************************************************/
+
 public class PopulationController extends Fragment
 {
     @Nullable

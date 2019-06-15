@@ -20,7 +20,7 @@ public class PopulationBuilding extends Building
         this.consumptionRate = consumptionRate;
     }
 
-    //second constructor that takes values from object which class it is extended from
+    //second constructor that takes values from Building object which class it is extended from
     public PopulationBuilding(Building building, double consumptionRate)
     {
         super(building.getName(), building.getProductionTime(), building.getFirstRequiredResource(),

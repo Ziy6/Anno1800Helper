@@ -20,9 +20,15 @@ import com.adv.anno1800helper.R;
 import com.adv.anno1800helper.helpers.Building;
 import com.adv.anno1800helper.helpers.DatabaseInteractor;
 
+/***************************************************************************************************
+ *
+ *  A class setups the building calculator results fragment layout and receives input from the
+ *  BuildingCalculator fragment to calculate and display results
+ *
+ **************************************************************************************************/
+
 public class BuildingResults extends Fragment
 {
-
     private static final String TAG = "BUILDINGS_RESULTS";
     private View view;
     private DatabaseInteractor dbInterractor;
@@ -35,12 +41,18 @@ public class BuildingResults extends Fragment
 
         String buildingName;
         dbInterractor = new DatabaseInteractor(getContext());
-
         buildingName = getArguments().getString(BuildingCalculator.BLD_CALC_BUNDLE_KEY);
         addInitialImage(buildingName);
         listenerSetup();
 
         return view;
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        dbInterractor.closeDatabase();
     }
 
     //set input building button
@@ -106,6 +118,7 @@ public class BuildingResults extends Fragment
             }
         });
     }
+
     //recursive method to add results to the bottom of the screen
     private void addRequiredBuildings(String requiredBuildingType, int inputBuildingProductionTime,
                                       int inputBuildingNumber)
@@ -122,8 +135,8 @@ public class BuildingResults extends Fragment
         //creating, setting and adding a result layout for components
         LinearLayout requiredInnerContainer = new LinearLayout(getContext());
 
-        ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        ViewGroup.LayoutParams layoutParams = new LinearLayout.LayoutParams
+                (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         ((LinearLayout.LayoutParams) layoutParams).setMargins(getPxFromDp(20), getPxFromDp(20),
                 getPxFromDp(20), getPxFromDp(20));
         requiredInnerContainer.setLayoutParams(layoutParams);
@@ -166,9 +179,11 @@ public class BuildingResults extends Fragment
                     building.getProductionTime(), calculatedBuildingsNeeded);
     }
 
-    private int calculateNumberNeeded(int requiredBuildingProductionTime, int inputBuildingProductionTime,
-                                      int inputBuildingNumber)
+    //calculate number of buildings needed
+    private int calculateNumberNeeded(int requiredBuildingProductionTime,
+                                      int inputBuildingProductionTime, int inputBuildingNumber)
     {
+        //ciel rounds up
         return (int) Math.ceil((double)inputBuildingNumber * ((double)requiredBuildingProductionTime/
                 (double)inputBuildingProductionTime));
     }
